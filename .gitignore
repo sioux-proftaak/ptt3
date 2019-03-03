@@ -1,0 +1,9 @@
+*.o
+*.a
+/gtest
+*~
+.*.d
+
+# Add your executables here, so git will ignore them
+/application/src/calculator
+/library/test/testCalculator
