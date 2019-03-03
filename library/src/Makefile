@@ -2,7 +2,7 @@
 #   make
 #   make all
 
-# Name of your library. It is always called something.a, otherwise
+# Name of your library. It is always called libsomething.a, otherwise
 # the linker won't find it.
 LIB = libcalculator.a
 
