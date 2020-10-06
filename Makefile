@@ -7,17 +7,21 @@ SUBDIRS = application library
 all: $(SUBDIRS)
 
 application: library
-library: gtest/libgtest.a
+
+ifeq "$(wildcard /usr/lib/x86_64-linux-gnu/libgtest.a)" ""
+library: .gtest
+endif
 
 $(SUBDIRS):
 	$(MAKE) -C $@ 
 
 clean:
-	make -C application clean && make -C library clean && rm -rf gtest
+	make -C application clean && make -C library clean && rm -rf gtest .gtest
 
-gtest/libgtest.a:
-	mkdir gtest
-	cd gtest && cmake /usr/src/gtest
+.gtest:
+	mkdir -p gtest
+	cd gtest && cmake /usr/src/googletest/googletest
 	$(MAKE) -C gtest
+	touch .gtest
 
 .PHONY: all $(SUBDIRS) clean

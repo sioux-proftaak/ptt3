@@ -10,17 +10,17 @@ EXEC = testCalculator
 INCLUDE_LOCATIONS = -I. -I../inc
 
 # -L directives for the locations of your libraries
-LIBRARY_LOCATIONS = -L../../gtest -L../src
+LIBRARY_LOCATIONS = -L../../gtest -L../../gtest/lib
 
 # -l directives for the libaries you need (leave out the lib and the .a parts)
-LINKED_LIBRARIES = -lgtest -lgtest_main -lcalculator
+LINKED_LIBRARIES = -lgtest -lgtest_main
 
 # Name of your sources
 SOURCES = $(wildcard *.cpp)
 
 #Don't change these
 CXX = g++
-CXXFLAGS += -ggdb3 -Wall -Wextra
+CXXFLAGS += -ggdb3 -Wall -Wextra -std=c++17
 CPPFLAGS += -D_REENTRANT -DDEBUG $(INCLUDE_LOCATIONS)
 OBJECTS = $(SOURCES:.cpp=.o)
 DEPENDENCY_FILES = $(addprefix .,$(OBJECTS:.o=.d))
@@ -44,7 +44,7 @@ endif
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ -MD -MP -MF .$*.d
 
 # Create the testappMain target
-$(EXEC): $(OBJECTS)
+$(EXEC): $(OBJECTS) ../src/libcalculator.a
 	$(CXX) $(LDFLAGS) $^ -o $@ $(LINKED_LIBRARIES)
 
 # If you change your Makefile, you probably want to rebuild your code
@@ -58,4 +58,4 @@ test: $(EXEC)
 clean:
 	rm -f $(EXEC) $(OBJECTS) $(DEPENDENCY_FILES)
 
-.PHONY: clean all
+.PHONY: clean all test

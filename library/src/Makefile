@@ -14,7 +14,7 @@ SOURCES_LIB = $(wildcard *.cpp)
 
 #Don't change these
 CXX = g++
-CXXFLAGS += -ggdb3 -Wall -Wextra
+CXXFLAGS += -ggdb3 -Wall -Wextra -std=c++17
 CPPFLAGS += -D_REENTRANT -DDEBUG $(INCLUDE_LOCATIONS)
 OBJECTS_LIB = $(SOURCES_LIB:.cpp=.o)
 DEPENDENCY_FILES = $(addprefix .,$(OBJECTS_LIB:.o=.d))
